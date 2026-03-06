@@ -43,7 +43,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           # Force the http:// prefix here
-          SONAR_HOST_URL: ${{ vars.SONAR_URL }} 
+          SONAR_HOST_URL: http://13.223.94.41:9000 
         with:
           args: >
             -Dsonar.projectName=coffee-app
@@ -53,7 +53,7 @@ jobs:
         uses: sonarsource/sonarqube-quality-gate-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ vars.SONAR_URL }}
+          SONAR_HOST_URL: http://13.223.94.41:9000
 
 
       - name: Trivy FS Scan
