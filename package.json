@@ -1,7 +1,7 @@
 {
   "name": "starbucks-clone",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "publishConfig": {
     "registry": "http://13.223.86.183:8081/repository/npm-private/"
   },
