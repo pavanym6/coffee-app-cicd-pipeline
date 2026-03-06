@@ -65,10 +65,15 @@ jobs:
           exit-code: '0'
           severity: 'CRITICAL,HIGH'
 
+      # 6. ARTIFACT STORAGE (Immutable Registry)
       - name: Publish Artifact to Nexus
-        run: npm publish
+        run: |
+          # Create a local .npmrc to force authentication for your specific IP
+          echo "//13.223.86.183:8081/repository/npm-private/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          npm publish --registry http://13.223.86.183:8081/repository/npm-private/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NEXUS_TOKEN }}
+
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
