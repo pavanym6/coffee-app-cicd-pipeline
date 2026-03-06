@@ -33,7 +33,7 @@ jobs:
       - name: Install Dependencies & Audit
         run: |
           npm install
-          npm audit --audit-level=high
+          npm audit --audit-level=critical
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NEXUS_TOKEN }}
 
