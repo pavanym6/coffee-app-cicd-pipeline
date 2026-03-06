@@ -37,25 +37,24 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NEXUS_TOKEN }}
 
+
       - name: SonarQube Analysis
         uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ vars.SONAR_URL }}
+          # Force the http:// prefix here
+          SONAR_HOST_URL: http://${{ vars.SONAR_URL }} 
         with:
           args: >
             -Dsonar.projectName=coffee-app
             -Dsonar.projectKey=coffee-app
-#
+
       - name: SonarQube Quality Gate Check
-        id: sonarqube-quality-gate-check
         uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
-        with:
-          pollingTimeoutSec: 300
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ vars.SONAR_URL }}
+          SONAR_HOST_URL: http://${{ vars.SONAR_URL }}
+
 
       - name: Trivy FS Scan
         uses: aquasecurity/trivy-action@master
