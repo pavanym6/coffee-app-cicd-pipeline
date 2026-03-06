@@ -68,9 +68,14 @@ jobs:
       # 6. ARTIFACT STORAGE (Immutable Registry)
       - name: Publish Artifact to Nexus
         run: |
-          # Create a local .npmrc to force authentication for your specific IP
-          echo "//13.223.86.183:8081/repository/npm-private/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          npm publish --registry http://13.223.86.183:8081/repository/npm-private/
+          # 1. Clean up any existing config
+          rm -f .npmrc
+          # 2. Create fresh auth config
+          echo "registry=http://13.223.86.183:8081/repository/npm-private/" > .npmrc
+          echo "//13.223.86.183:8081/repository/npm-private/:_auth=${NODE_AUTH_TOKEN}" >> .npmrc
+          echo "always-auth=true" >> .npmrc
+          # 3. Publish
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NEXUS_TOKEN }}
 
