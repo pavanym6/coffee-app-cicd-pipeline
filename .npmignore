@@ -1,0 +1,9 @@
+.cache/
+.scannerwork/
+*.pdf
+scripts/
+kubernetes/
+monitoring/
+results.sarif
+Jenkinsfile*
+Dockerfile
